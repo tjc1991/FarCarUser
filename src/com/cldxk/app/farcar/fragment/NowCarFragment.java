@@ -154,6 +154,7 @@ public class NowCarFragment extends BaseFragment implements OnClickListener,OnGe
 				ysorder.setOrderStatues(YSOrderStatus.YSOrder_Normal);
 				ysorder.setOrderType(YSOrderType.Now);
 				ysorder.setOrderYuYueMsg("");
+				ysorder.setOrderGoPhone("");
 				String people_num = people_tx.getText().toString();
 				String every_money = pay_money.getText().toString();
 				

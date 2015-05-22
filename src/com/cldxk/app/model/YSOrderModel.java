@@ -19,7 +19,7 @@ public class YSOrderModel extends BmobObject implements Serializable{
 	private String cityDest;
 	
 	//时间
-	private String fromTime;
+	//private String fromTime;
 	
 	//联系电话
 	private String telePhone;
@@ -39,6 +39,7 @@ public class YSOrderModel extends BmobObject implements Serializable{
 	//fastjson无法解析父类的方法
 	
 	private String orderYuYueMsg;
+	
 	
 	//设置数据库表名
 //	public YSOrderModel(){
@@ -61,13 +62,13 @@ public class YSOrderModel extends BmobObject implements Serializable{
 		this.cityDest = cityDest;
 	}
 
-	public String getFromTime() {
-		return fromTime;
-	}
-
-	public void setFromTime(String fromTime) {
-		this.fromTime = fromTime;
-	}
+//	public String getFromTime() {
+//		return fromTime;
+//	}
+//
+//	public void setFromTime(String fromTime) {
+//		this.fromTime = fromTime;
+//	}
 
 	public String getTelePhone() {
 		return telePhone;

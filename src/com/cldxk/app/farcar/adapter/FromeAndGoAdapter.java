@@ -70,6 +70,7 @@ public class FromeAndGoAdapter extends BaseAdapter{
 			  holder.statusTv = ((TextView) convertView.findViewById(R.id.pay_status));	  
 			  holder.orderTimeTv = ((TextView) convertView.findViewById(R.id.order_time));	
 			  holder.yymsTv = ((TextView) convertView.findViewById(R.id.yuyue_msg_time));
+			  holder.orderdate = ((TextView) convertView.findViewById(R.id.carmsg_date));
 			  //设置标记
 			  convertView.setTag(holder);
         }else{
@@ -85,6 +86,7 @@ public class FromeAndGoAdapter extends BaseAdapter{
         holder.goTv.setText(orderitem.getCityDest());
         holder.fromTv.setText(orderitem.getCityFrom());
         holder.orderTimeTv.setText(orderitem.getObjectId()+"");
+        holder.orderdate.setText(orderitem.getCreatedAt());
         switch(orderitem.getOrderStatues()){        
 	        case YSOrderStatus.YSOrder_Normal:
 	        		holder.statusTv.setText("等待接单");
@@ -124,6 +126,7 @@ public class FromeAndGoAdapter extends BaseAdapter{
 		TextView statusTv;
 		TextView orderTimeTv;
 		TextView yymsTv;
+		TextView orderdate;
 	}
 	
 }

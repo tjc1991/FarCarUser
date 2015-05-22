@@ -23,6 +23,7 @@ import android.widget.Toast;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.listener.FindCallback;
+import cn.bmob.v3.listener.FindListener;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -126,8 +127,9 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 	
 	public void GetCarMsgData(){
 		
+		//系统方式查找,方便便捷,可以获取时间数据
 		//查询服务器获取数据
-		BmobQuery query = new BmobQuery("ys_order");
+		BmobQuery<YSOrderModel> query = new BmobQuery<YSOrderModel>();
 		//按照时间降序
         query.order("-createdAt");
         
@@ -142,30 +144,38 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 		query.setSkip(0);
 		
 		//执行查询，第一个参数为上下文，第二个参数为查找的回调
-        query.findObjects(this, new FindCallback() {
+        query.findObjects(this, new FindListener<YSOrderModel>() {
 			
-			@Override
-			public void onSuccess(JSONArray arg0) {
+			public void onSuccess(List<YSOrderModel>arg0) {
 				// TODO Auto-generated method stub
 				
 				//停止刷新
 				stoponLoad();
-				if(arg0.length()<= 0){
+				
+				if(null == arg0){
+					return;
+				}
+				if(arg0.size()<= 0){
 					Toast.makeText(getApplicationContext(), "没有最新数据了", Toast.LENGTH_SHORT).show();
 					return;
 				}
 				
-				Toast.makeText(getApplicationContext(), "加载"+arg0.length()+""+"条订单", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "加载"+arg0.size()+""+"条订单", Toast.LENGTH_SHORT).show();
 				//Log.i("tjc", arg0.toString());
 				
 				//刷新数据适配器
-				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
-				for (YSOrderModel ysOrderModel : orders) {
-					
+				for (YSOrderModel ysOrderModel : arg0) {
 					listItems.add(ysOrderModel);
-					Log.i("tjc", "--->price="+ysOrderModel.getOrderPrice());
-
+					Log.i("tjc","time="+ysOrderModel.getCreatedAt());
 				}
+				
+//				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
+//				for (YSOrderModel ysOrderModel : orders) {
+//					
+//					listItems.add(ysOrderModel);
+//					Log.i("tjc", "--->price="+ysOrderModel.getOrderPrice());
+//
+//				}
 								
 				orderAdapter.set_datasource(listItems);
 				orderAdapter.notifyDataSetChanged();
@@ -176,7 +186,7 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 			}
 			
 			@Override
-			public void onFailure(int arg0, String arg1) {
+			public void onError(int code, String msg){
 				// TODO Auto-generated method stub
 				
 				//停止刷新
@@ -187,11 +197,78 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 			}
 		});
 		
+		
+		
+		
+		
+		//自定义方式查找
+		
+//		//查询服务器获取数据
+//		BmobQuery query = new BmobQuery("ys_order");
+//		//按照时间降序
+//        query.order("-createdAt");
+//        
+//		//添加查询参数
+//		if(myphone != null){		
+//			//key /value
+//			query.addWhereContains("telePhone", myphone);
+//		}  
+//		
+//		//分页查询
+//		query.setLimit(page_size);
+//		query.setSkip(0);
+//		
+//		//执行查询，第一个参数为上下文，第二个参数为查找的回调
+//        query.findObjects(this, new FindCallback() {
+//			
+//			@Override
+//			public void onSuccess(JSONArray arg0) {
+//				// TODO Auto-generated method stub
+//				
+//				//停止刷新
+//				stoponLoad();
+//				if(arg0.length()<= 0){
+//					Toast.makeText(getApplicationContext(), "没有最新数据了", Toast.LENGTH_SHORT).show();
+//					return;
+//				}
+//				
+//				Toast.makeText(getApplicationContext(), "加载"+arg0.length()+""+"条订单", Toast.LENGTH_SHORT).show();
+//				//Log.i("tjc", arg0.toString());
+//				
+//				//刷新数据适配器
+//				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
+//				for (YSOrderModel ysOrderModel : orders) {
+//					
+//					listItems.add(ysOrderModel);
+//					Log.i("tjc", "--->price="+ysOrderModel.getOrderPrice());
+//
+//				}
+//								
+//				orderAdapter.set_datasource(listItems);
+//				orderAdapter.notifyDataSetChanged();
+//				
+//				//当前索引+1
+//				cur_page++;
+//								
+//			}
+//			
+//			@Override
+//			public void onFailure(int arg0, String arg1) {
+//				// TODO Auto-generated method stub
+//				
+//				//停止刷新
+//				stoponLoad();
+//				Toast.makeText(getApplicationContext(), "加载失败", Toast.LENGTH_SHORT).show();
+//				
+//				
+//			}
+//		});
+		
 	}
 	
 	public void getNewmsgData(final int page){
-				
-		BmobQuery query = new BmobQuery("ys_order");
+		
+		BmobQuery<YSOrderModel> query = new BmobQuery<YSOrderModel>();
 		
 		query.order("-createdAt");
 
@@ -205,31 +282,42 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 		query.setLimit(page_size);
 		query.setSkip(page*page_size);
 		
-		query.findObjects(this, new FindCallback() {
+		query.findObjects(this, new FindListener<YSOrderModel>() {
 			
 			@Override
-			public void onSuccess(JSONArray arg0) {
+			public void onSuccess(List<YSOrderModel> arg0) {
 				// TODO Auto-generated method stub
 				
 				//停止刷新
 				stoponLoad();
-				if(arg0.length() <= 0)
+				
+				if(null == arg0){
+					return;
+				}
+				
+				if(arg0.size() <= 0)
 				{
 					Toast.makeText(getApplicationContext(), "没有最新订单", Toast.LENGTH_SHORT).show();
 					return;
 				}else{
-					Toast.makeText(getApplicationContext(), "加载"+arg0.length()+""+"条新订单", Toast.LENGTH_SHORT).show();	
+					Toast.makeText(getApplicationContext(), "加载"+arg0.size()+""+"条新订单", Toast.LENGTH_SHORT).show();	
 				}
 				Log.i("tjc", arg0.toString());
 				
 				//刷新数据适配器
-				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
-				for (YSOrderModel ysOrderModel : orders) {
+				for (YSOrderModel ysOrderModel : arg0) {
 					listItems.add(0,ysOrderModel);
-					
 					Log.i("tjc", "--->price="+ysOrderModel.getOrderPrice());
-
+					Log.i("tjc", "--->time="+ysOrderModel.getCreatedAt());
 				}
+				
+//				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
+//				for (YSOrderModel ysOrderModel : orders) {
+//					listItems.add(0,ysOrderModel);
+//					
+//					Log.i("tjc", "--->price="+ysOrderModel.getOrderPrice());
+//
+//				}
 				
 				orderAdapter.set_datasource(listItems);
 				orderAdapter.notifyDataSetChanged();
@@ -241,7 +329,7 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 			}
 			
 			@Override
-			public void onFailure(int arg0, String arg1) {
+			public void onError(int code, String msg){
 				// TODO Auto-generated method stub
 				
 				//停止刷新
@@ -251,6 +339,69 @@ public class UserOrderActivity extends EBaseActivity implements IXListViewListen
 				
 			}
 		});
+		
+		
+		//自定义表名查询
+//		BmobQuery query = new BmobQuery("ys_order");
+//		
+//		query.order("-createdAt");
+//
+//		//添加查询参数
+//		if(myphone != null){		
+//			//key /value
+//			query.addWhereContains("telePhone", myphone);
+//		}   
+//		
+//		//分页查询
+//		query.setLimit(page_size);
+//		query.setSkip(page*page_size);
+//		
+//		query.findObjects(this, new FindCallback() {
+//			
+//			@Override
+//			public void onSuccess(JSONArray arg0) {
+//				// TODO Auto-generated method stub
+//				
+//				//停止刷新
+//				stoponLoad();
+//				if(arg0.length() <= 0)
+//				{
+//					Toast.makeText(getApplicationContext(), "没有最新订单", Toast.LENGTH_SHORT).show();
+//					return;
+//				}else{
+//					Toast.makeText(getApplicationContext(), "加载"+arg0.length()+""+"条新订单", Toast.LENGTH_SHORT).show();	
+//				}
+//				Log.i("tjc", arg0.toString());
+//				
+//				//刷新数据适配器
+//				List<YSOrderModel>orders = JSON.parseArray(arg0.toString(), YSOrderModel.class);
+//				for (YSOrderModel ysOrderModel : orders) {
+//					listItems.add(0,ysOrderModel);
+//					
+//					Log.i("tjc", "--->price="+ysOrderModel.getOrderPrice());
+//
+//				}
+//				
+//				orderAdapter.set_datasource(listItems);
+//				orderAdapter.notifyDataSetChanged();
+//				
+//				cur_page++;
+//				//Log.i("tjc", "-->"+cur_page+"");
+//				
+//				
+//			}
+//			
+//			@Override
+//			public void onFailure(int arg0, String arg1) {
+//				// TODO Auto-generated method stub
+//				
+//				//停止刷新
+//				stoponLoad();
+//				Toast.makeText(getApplicationContext(), "加载失败", Toast.LENGTH_SHORT).show();
+//				
+//				
+//			}
+//		});
 		
 				
 	}

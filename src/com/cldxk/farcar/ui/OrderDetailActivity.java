@@ -507,29 +507,73 @@ public class OrderDetailActivity extends EBaseActivity implements OnClickListene
 //				"订单状态", "正在查询预定状态...");
 //		progressDialog.setCancelable(false);
 		
+		
+		//自定义表名查询方式
+//		String orderId = ysorder.getObjectId();
+//		
+//		Log.i("tjc", "orderId="+orderId+"");
+//		
+//		//查询服务器获取数据
+//		BmobQuery query = new BmobQuery("ys_order");
+//		query.addWhereContains("objectId", orderId);
+//		
+//		query.findObjects(this, new FindCallback() {
+//			
+//			@Override
+//			public void onSuccess(JSONArray arg0) {
+//				// TODO Auto-generated method stub
+//				
+//				//progressDialog.dismiss();
+//								
+//				if(arg0.length() == 1){
+//					
+//					com.alibaba.fastjson.JSONArray jsonarray = JSON.parseArray(arg0.toString());
+//					
+//					com.alibaba.fastjson.JSONObject jsonobj = jsonarray.getJSONObject(0);
+//					//订单状态
+//					int orderst = jsonobj.getIntValue("orderStatues");
+//					
+//					Log.i("tjc", "orderId="+orderst+"");
+//					
+//					if(orderst == YSOrderStatus.YSOrder_Select){						
+//						//支付
+//						paystatus_tx.setText("已抢单,待支付");	
+//						Log.i("tjc", "orderId="+ysorder.getOrderGoPhone()+"");
+//
+//						getDriverId(ysorder.getOrderGoPhone());
+//																									
+//					}else if(orderst == YSOrderStatus.YSOrder_Normal){
+//						Toast.makeText(getApplicationContext(), "等待司机接单", Toast.LENGTH_SHORT).show();
+//					}else if(orderst == YSOrderStatus.YSOrder_Pay){
+//						Toast.makeText(getApplicationContext(), "已支付,无需重新支付", Toast.LENGTH_SHORT).show();
+//					}
+//				}
+//			}
+//			
+//			@Override
+//			public void onFailure(int arg0, String arg1) {
+//				// TODO Auto-generated method stub
+//				//progressDialog.dismiss();
+//				Toast.makeText(getApplicationContext(), "查询失败", Toast.LENGTH_SHORT).show();
+//			}
+//		});
+		
+		//基于系统方式查询,方便简洁		
+		
 		String orderId = ysorder.getObjectId();
-		
-		Log.i("tjc", "orderId="+orderId+"");
-		
-		//查询服务器获取数据
-		BmobQuery query = new BmobQuery("ys_order");
-		query.addWhereContains("objectId", orderId);
-		
-		query.findObjects(this, new FindCallback() {
+		BmobQuery<YSOrderModel> query = new BmobQuery<YSOrderModel>();
+		query.getObject(getApplicationContext(), orderId, new GetListener<YSOrderModel>() {
 			
 			@Override
-			public void onSuccess(JSONArray arg0) {
+			public void onSuccess(YSOrderModel mymodel) {
 				// TODO Auto-generated method stub
 				
-				//progressDialog.dismiss();
-								
-				if(arg0.length() == 1){
+				if(null != mymodel){
+										
+					Log.i("tjc", "-->"+mymodel.getObjectId()+"");
 					
-					com.alibaba.fastjson.JSONArray jsonarray = JSON.parseArray(arg0.toString());
-					
-					com.alibaba.fastjson.JSONObject jsonobj = jsonarray.getJSONObject(0);
 					//订单状态
-					int orderst = jsonobj.getIntValue("orderStatues");
+					int orderst = mymodel.getOrderStatues();
 					
 					Log.i("tjc", "orderId="+orderst+"");
 					
@@ -537,48 +581,27 @@ public class OrderDetailActivity extends EBaseActivity implements OnClickListene
 						//支付
 						paystatus_tx.setText("已抢单,待支付");	
 						Log.i("tjc", "orderId="+ysorder.getOrderGoPhone()+"");
-
+						
 						getDriverId(ysorder.getOrderGoPhone());
-																									
+						
 					}else if(orderst == YSOrderStatus.YSOrder_Normal){
 						Toast.makeText(getApplicationContext(), "等待司机接单", Toast.LENGTH_SHORT).show();
 					}else if(orderst == YSOrderStatus.YSOrder_Pay){
 						Toast.makeText(getApplicationContext(), "已支付,无需重新支付", Toast.LENGTH_SHORT).show();
 					}
 				}
+				
 			}
 			
 			@Override
 			public void onFailure(int arg0, String arg1) {
 				// TODO Auto-generated method stub
-				//progressDialog.dismiss();
+				
 				Toast.makeText(getApplicationContext(), "查询失败", Toast.LENGTH_SHORT).show();
+				
 			}
 		});
 		
-		
-		
-		
-//		query.getObject(getApplicationContext(), orderId, new GetListener<YSOrderModel>() {
-//			
-//			@Override
-//			public void onSuccess(YSOrderModel mymodel) {
-//				// TODO Auto-generated method stub
-//				progressDialog.dismiss();
-//				Log.i("tjc", "-->"+mymodel.getObjectId()+"");
-//				Toast.makeText(getApplicationContext(), "查询成功", Toast.LENGTH_SHORT).show();
-//			}
-//			
-//			@Override
-//			public void onFailure(int arg0, String arg1) {
-//				// TODO Auto-generated method stub
-//				
-//				progressDialog.dismiss();
-//				Toast.makeText(getApplicationContext(), "查询失败", Toast.LENGTH_SHORT).show();
-//				
-//			}
-//		});
-//		
 
 //		updateorder.update(this, orderId, new UpdateListener() {
 //
@@ -672,8 +695,7 @@ public class OrderDetailActivity extends EBaseActivity implements OnClickListene
 		    					    					    					    				    			
 		    			Log.i("tjc", "driverid="+driverid);
 		    			Log.i("tjc", "drivermoney="+drivermoney+"");
-		    			
-		    			
+		    					    			
 		    			//完成支付
 					if(pay_way == 1)
 					{				

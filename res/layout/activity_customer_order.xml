@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_a999999"    >
+
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" > 
+    
+   <!--  <include layout="@layout/activity_actionbar" />   --> 
+	<LinearLayout
+	    android:id="@+id/time_lv" 
+		android:gravity="center_vertical" 
+		android:orientation="horizontal" 
+		android:paddingLeft="18.0dip"
+        android:background="@drawable/transparent_gray_selector" 
+        android:clickable="true"
+		android:layout_marginTop="10dip"       
+		android:layout_width="fill_parent" 
+		android:layout_height="50dip">
+        
+        <ImageView 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="12.0dip" 
+            android:layout_marginBottom="12.0dip" 
+            android:src="@drawable/icon_clock" 
+            android:contentDescription="@null" />
+        
+        <TextView 
+            android:textSize="18.0sp" 
+            android:textColor="#ff444444" 
+            android:textColorHint="@color/about_us_copyright" 
+            android:hint="@string/time_from_go"
+            android:ellipsize="end" 
+            android:gravity="center_vertical" 
+            android:id="@+id/tv_time" 
+            android:layout_width="0.0dip" 
+            android:layout_height="wrap_content" 
+            android:singleLine="true" 
+            android:layout_weight="1.0" />
+                
+
+        <ImageView 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginTop="12.0dip" 
+            android:layout_marginBottom="12.0dip" 
+            android:layout_marginRight="18dip"
+            android:src="@drawable/arrow_right" 
+            android:contentDescription="@null" />        	    
+	
+	</LinearLayout>	
+	<include layout="@layout/order_from_to_addr_panel"/>
+	
+	<LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:background="@color/white"
+            android:orientation="horizontal">
+          
+         <TextView 
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/loadcplor"
+               android:textSize="20sp"
+               android:layout_marginTop="15dp"
+               android:text="@string/city_pay"/>
+           
+          <TextView 
+              android:id="@+id/pay_yuyue_total_money"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="40sp"
+               android:layout_marginTop="15dp"              
+               android:textColor="@color/custom_pottery_red"               
+               android:layout_marginLeft="10dp"
+               />
+          
+          <TextView
+              android:id="@+id/pay_yuyue_people"               
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="30sp"
+               android:layout_marginTop="25dp"              
+               android:textColor="@color/custom_pottery_red"               
+               android:layout_marginLeft="2dp"
+               android:visibility="gone"
+               android:text="/人"/>            
+        </LinearLayout>
+	
+	<RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@color/white"
+	        android:layout_marginTop="20dp" >
+	
+	        <TextView
+	            android:id="@+id/yuyue_tmp"
+	            android:layout_marginTop="8dp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="10dp"
+	            android:text="乘车人数:"
+	            android:textColor="@color/loadcplor"
+	            android:textSize="20sp" />
+	
+	        <TextView
+	            android:id="@+id/yuyue_people"
+	            android:layout_marginTop="8dp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_toRightOf="@id/yuyue_tmp"
+	            android:textColor="@color/red"
+	            android:textSize="20sp" />
+	
+	        <Button
+	            android:id="@+id/add_yuyue_btn"
+	            android:layout_width="40dp"
+	            android:layout_height="40dp"
+	            android:layout_alignParentRight="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginRight="20dp"
+	            android:background="@drawable/add_btnsc" />
+	
+	    </RelativeLayout>	
+				
+</LinearLayout> 
+
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_alignParentBottom="true">
+	
+    <Button
+    	    android:id="@+id/yuyue_search_btn" 
+	    android:layout_width="fill_parent"
+	    android:layout_weight="1.0"
+	    android:layout_height="50dp"
+	    android:layout_marginBottom="20dp"
+	    android:background="@drawable/green_btn"
+	    android:textColor="@color/white"
+	    android:layout_marginLeft="10dp"
+	    android:layout_marginRight="10dp"
+	    android:text="查询费用"/>
+    
+    	<Button
+    	    android:id="@+id/prepare_yuyue_btn" 
+	    android:layout_width="fill_parent"
+	    	android:layout_weight="0.5"	    
+	    android:layout_height="50dp"
+	    android:layout_marginBottom="20dp"
+	    android:background="@drawable/green_btn"
+	    android:textColor="@color/white"
+	    android:layout_marginRight="5dp"
+	    android:text="预约租车"/>
+</LinearLayout>
+</RelativeLayout>

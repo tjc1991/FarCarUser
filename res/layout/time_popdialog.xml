@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white_e0e0e0"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3" >
+        
+        <Button 
+            android:id="@+id/time_cancel_btn"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:background="@drawable/time_btn"
+            android:text="取消"/>
+        
+        <Button 
+            android:id="@+id/time_confirm_btn"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:background="@drawable/time_btn"
+            android:text="确定"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/time_cancel_btn"
+            android:layout_alignBottom="@+id/time_cancel_btn"
+            android:layout_centerHorizontal="true"
+            android:text="请提前10分钟预约"
+            android:textColor="@color/loadcplor"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+      
+     <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+        
+            <antistatic.spinnerwheel.WheelVerticalView android:id="@+id/time_day"
+                    android:layout_height="fill_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"/>
+            <antistatic.spinnerwheel.WheelVerticalView android:id="@+id/time_hour"
+                    android:layout_height="fill_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"/>
+            <antistatic.spinnerwheel.WheelVerticalView android:id="@+id/time_mine"
+                    android:layout_height="fill_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"/> 
+
+  </LinearLayout> 
+    
+
+</LinearLayout>

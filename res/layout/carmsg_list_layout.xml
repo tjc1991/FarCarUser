@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:baselineAligned="false"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:id="@+id/pay_order_pannel"
+    android:background="@drawable/dest_prompt_bg"
+    android:layout_marginTop="20dp"
+    android:layout_height="140dp" >
+    
+    <LinearLayout 
+        android:layout_width="50dp"
+        android:layout_height="fill_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        > 
+        
+           <ImageView
+		        android:id="@+id/imageView2"
+		        android:layout_width="50dp"
+		        android:layout_height="90dp"
+		        android:layout_marginTop="5dp"
+		        android:src="@drawable/business_icon_here_to_there" /> 
+ 
+<!--            <View
+		        android:layout_width="fill_parent"
+		        android:layout_marginTop="15dp"
+		        android:layout_height="2dp"
+		    		android:background="@color/green"/>  -->
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        >
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        
+           <TextView
+		        android:id="@+id/carmsg_from"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:ellipsize="end"
+		        android:hint="@string/city_name_from"
+		        android:text=""
+		        android:textColor="#ff444444"
+		        android:textSize="22.0sp" /> 
+		        
+            <TextView
+		        android:id="@+id/yuyue_msg_time"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:ellipsize="end"
+		        android:layout_marginLeft="20dp"
+		        android:text=""
+		        android:textColor="#FC3150"
+		        android:textSize="15.0sp" /> 
+		        
+          </LinearLayout>
+		        
+           <RelativeLayout
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="15dp">
+
+               <TextView
+                   android:id="@+id/pay_status"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:layout_centerVertical="true"
+                   android:layout_marginRight="27dp"
+                   android:text="@string/pay_status"
+                   android:textColor="@color/red"
+                   android:textSize="20.0sp" />
+
+           </RelativeLayout>
+           
+               <TextView
+			        android:id="@+id/carmsg_go"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:ellipsize="end"
+			        android:hint="@string/city_name_go"
+			        android:textColor="#ff444444"
+			        android:textSize="22.0sp" />
+               
+<!--               <View
+			        android:layout_width="fill_parent"
+			        android:layout_height="2dp"
+			        android:layout_marginTop="5dp"
+			    		android:background="@color/green"/> -->
+			    		
+		<LinearLayout 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:layout_gravity="center"
+	        android:gravity="center">
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_939393"
+            android:textSize="16sp"
+            android:text="订单号:"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        <TextView 
+            android:id="@+id/order_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_939393"
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp"
+            android:text=""/>
+    </LinearLayout>
+        
+    </LinearLayout>
+    
+
+
+</LinearLayout>
